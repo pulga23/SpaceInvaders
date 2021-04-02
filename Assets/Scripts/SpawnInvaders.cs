@@ -14,6 +14,12 @@ public class SpawnInvaders : MonoBehaviour
     GameObject invasorC;
 
     [SerializeField]
+    GameObject[] invasores;
+
+    [SerializeField]
+    GameObject[] indestrutiveis;
+
+    [SerializeField]
     int nInvasores = 7;
 
     [SerializeField]
@@ -22,33 +28,41 @@ public class SpawnInvaders : MonoBehaviour
     [SerializeField]
     float yMin = -0.5f;
 
+    [SerializeField]
+    float xInc = 1f;
+
+    [SerializeField]
+    float yInc = 0.5f;
+
+    [SerializeField]
+    float probIndestrutivel = 0.15f;
+
     void Awake()
     {
-        float x = xMin;
         float y = yMin;
 
-        for (int i = 1; i <= 2*nInvasores; i++ )
+        for ( int line = 0; line < invasores.Length; line++)
         {
-           
             
-            GameObject newInvaderA = Instantiate(invasorA, transform);
-            newInvaderA.transform.position = new Vector3(x, y, 0f);
-          
-            GameObject newInvaderB = Instantiate(invasorB, transform);
-            newInvaderB.transform.position = new Vector3(x, (y+1f), 0f);
+            float x = xMin;
 
-            GameObject newInvaderC = Instantiate(invasorC, transform);
-            newInvaderC.transform.position = new Vector3(x, (y+2f), 0f);
-            
-            x += 1f;
-                
-             
-            if(i==(nInvasores))
+            for (int i = 1; i <= (nInvasores); i++)
             {
-                y += 0.5f;
-                x = xMin;
+                GameObject normalOuIndestrutivel;
+                if(Random.value < probIndestrutivel)
+                {
+                    normalOuIndestrutivel = indestrutiveis[line];
+                }
+                else
+                {
+                    normalOuIndestrutivel = invasores[line];
+                }
+                GameObject newInvader = Instantiate(normalOuIndestrutivel, transform);
+                newInvader.transform.position = new Vector3(x, y, 0f);
+                x += xInc;
             }
-            
+            y += yInc;
         }
     }
+
 }
