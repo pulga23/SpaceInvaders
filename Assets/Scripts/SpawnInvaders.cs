@@ -37,6 +37,13 @@ public class SpawnInvaders : MonoBehaviour
     [SerializeField]
     float probIndestrutivel = 0.15f;
 
+    [SerializeField]
+    float force = 1f;
+
+    int i = 0;
+
+    float tempo = 0f;
+
     void Awake()
     {
         float y = yMin;
@@ -65,4 +72,45 @@ public class SpawnInvaders : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        GetComponent<Rigidbody2D>().AddForce(Vector2.down * force); //invasores andam para baixo
+    }
+
+    void Update()
+    {
+        tempo += Time.deltaTime;
+       
+        if (tempo > 0.5f && i==0) //anda 0.5 para a direita 
+        {
+            Vector3 posicao = transform.position;
+            posicao.x += 0.5f;
+            transform.position = posicao;
+            i++;           
+        }
+        else if (tempo > 1f && i == 1) //0.5 esquerda, volta a 0
+        {
+            Vector3 posicao = transform.position;
+            posicao.x -= 0.5f;
+            transform.position = posicao;
+            i++;
+        }
+        else if (tempo > 1.5f && i == 2) //0.5 para a esquerda
+        {
+            Vector3 posicao = transform.position;
+            posicao.x -= 0.5f;
+            transform.position = posicao;
+            i++;
+        }
+        else if (tempo > 2f && i == 3) //0.5 direita, volta a 0
+        {
+            Vector3 posicao = transform.position;
+            posicao.x += 0.5f;
+            transform.position = posicao;
+            i = 0;
+            tempo = 0f;
+        }
+
+        
+    }
 }

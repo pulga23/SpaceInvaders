@@ -14,21 +14,31 @@ public class Invader : MonoBehaviour
     int vidasInvasoresBoss=10;
 
     float tempoQuePassou = 0f;
-      
+
+    
+    [SerializeField]
+    float deltaDisparos=1f; // variação da cadencia de disparos
+
+    
     
 
     void Update()
     {
+        float[] tempoDisparo = {(cadencia - deltaDisparos), (cadencia + deltaDisparos)};
+
         if (tag == "Destrutivel")
         {
             tempoQuePassou += Time.deltaTime;
-            if (tempoQuePassou >= Random.Range(cadencia, cadencia+1f))
+            if (tempoQuePassou >= tempoDisparo[Random.Range(0,2)])
             {
                 Instantiate(fire, transform.position, transform.rotation);
                 tempoQuePassou = 0f;
                 
             }
         }
+
+        
+        //GetComponent<Rigidbody2D>.velocity = 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

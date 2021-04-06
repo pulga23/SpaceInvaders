@@ -142,4 +142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fire: {fileID: 3956944495073098198, guid: 97b2dfcdb075344428e80a0a2812fbd3, type: 3}
-  cadencia: 0.5
+  cadencia: 2
+  vidasInvasoresBoss: 10
+  deltaDisparos: 1
